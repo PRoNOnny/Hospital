@@ -1,6 +1,6 @@
 const BaseResource = require("./baseResource");
 
-class UserResource extends BaseResource {
+class UserResource extends BaseResource { 
     constructor(){
         super()
     }
