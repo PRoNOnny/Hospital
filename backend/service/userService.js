@@ -7,6 +7,16 @@ class UserService extends BaseService {
         this.userApi = new UserApi(db)
     }
 
+    loginUser(user, password, callback){
+        this.userApi.loginUser(user, password, (res)=>{
+            if(res){
+                callback(res)
+            } else {
+                callback(false)
+            }
+        })
+    }
+
 }
 
 module.exports = UserService;
