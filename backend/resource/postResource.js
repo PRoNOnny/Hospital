@@ -8,12 +8,9 @@ class PostResource extends BaseResource {
     }
 
     init(app){
-        this.login(app)
+      
     }
 
-    login(app){
-
-    }
 
 }
 
