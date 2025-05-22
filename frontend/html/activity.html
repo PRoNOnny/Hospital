@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="โรงพยาบาลส่งเสริมสุขภาพตำบลลางา ให้บริการด้านสุขภาพครบวงจรสำหรับประชาชนในพื้นที่อำเภอมายอ จังหวัดปัตตานี">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="/front/css/home.css">
     <link rel="icon" href="/asset/img/favicon.ico" sizes="32x32">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>ข่าวสาร - โรงพยาบาลส่งเสริมสุขภาพตำบลลางา</title>
-    <link rel="stylesheet" href="css/home.css">
+    <title>ภาพกิจกรรม - โรงพยาบาลส่งเสริมสุขภาพตำบลลางา</title>
 </head>
+<!-- เฮดเดอร์ -->
 <header>
     <div class="top-bar">
         <div class="top-bar-content">
@@ -61,8 +63,94 @@
         </nav>
     </div>
 </header>
-<body>
-    <script src="js/script.js" defer></script>
+<script src="js/script.js" defer></script>
+<body class="bg-gray-50">
+    <div class="page-header">
+        <h1 class="page-title">ภาพกิจกรรม</h1>
+        <p class="page-subtitle">กิจกรรมต่างๆ ของโรงพยาบาลส่งเสริมสุขภาพตำบลลางา</p>
+    </div>
+    <div class="activity-container">
+        <div class="year-section">
+            <h2 class="year-title">กิจกรรมปี 2567</h2>
+            <div class="activity-grid">
+                <div class="activity-card" onclick="openModal('assets/img/67_1.jpg', 'เยี่ยมบ้านมารดาหลังคลอด โรงพยาบาลส่งเสริมสุขภาพ ต.ลางา')">
+                    <img src="assets/img/67_1.jpg" alt="เยี่ยมบ้านมารดาหลังคลอด">
+                    <div class="activity-info">
+                        <div class="activity-title">เยี่ยมบ้านมารดาหลังคลอด</div>
+                        <div class="activity-date">22 ตุลาคม 2567</div>
+                    </div>
+                </div>
+                
+                <div class="activity-grid">
+                    <div class="activity-card" onclick="openModal('assets/img/67_2.jpg', 'เยี่ยมบ้านมารดาหลังคลอด โรงพยาบาลส่งเสริมสุขภาพ ต.ลางา')">
+                        <img src="assets/img/67_2.jpg" alt="เยี่ยมบ้านมารดาหลังคลอด">
+                        <div class="activity-info">
+                            <div class="activity-title">ฝึกปฏิบัติงานอสม.ใหม่</div>
+                            <div class="activity-date">17 ตุลาคม 2567</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="year-section">
+            <h2 class="year-title">กิจกรรมปี 2568</h2>
+            <div class="activity-grid">
+                <div class="activity-card" onclick="openModal('assets/img/68_1.jpg', 'กิจกรรม Big Cleaning Day 1 ตำบล 1 ศูนร์ 1 ศาสนสถาน')">
+                    <img src="assets/img/68_1.jpg" alt="กิจกรรม Big Cleaning Day">
+                    <div class="activity-info">
+                        <div class="activity-title">ลงพื้นที่เยี่ยมผู้ป่วยติดเตียง</div>
+                        <div class="activity-date">6 มกราคม 2568</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for enlarged images -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="modalCaption" class="modal-caption"></div>
+    </div>
+    <script>
+        // Load navbar and footer
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-placeholder').innerHTML = data;
+                });
+                
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                });
+        });
+        
+        // Modal functionality
+        function openModal(imgSrc, caption) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const captionText = document.getElementById('modalCaption');
+            
+            modal.style.display = 'block';
+            modalImg.src = imgSrc;
+            captionText.innerHTML = caption;
+        }
+        
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+        
+        // Close modal when clicking outside the image
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
 </body>
  <!-- ฟุตเตอร์ -->
  <footer>
@@ -111,3 +199,4 @@
         <p>&copy; 2024 โรงพยาบาลส่งเสริมสุขภาพตำบลลางา. สงวนลิขสิทธิ์</p>
     </div>
 </footer>
+</html>
