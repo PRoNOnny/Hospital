@@ -1,0 +1,1015 @@
+/* ===== รีเซ็ต CSS ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Prompt', 'Sarabun', sans-serif;
+}
+
+body {
+    font-family: 'Prompt', 'Sarabun', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Top Bar Styles */
+.top-bar {
+    background-color: #044389;
+    color: white;
+    padding: 5px 0;
+}
+
+.top-bar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.top-bar a {
+    color: white;
+    margin-right: 15px;
+    font-size: 14px;
+}
+
+/* Header and Navigation */
+.logo-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 60px;
+    margin-right: 15px;
+}
+
+.logo-text h1 {
+    font-size: 22px;
+    color: #044389;
+    font-weight: bold;
+    margin: 0;
+}
+
+.logo-text p {
+    font-size: 14px;
+    margin: 0;
+    color: #333;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    position: relative;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: #333;
+    font-weight: 500;
+    padding: 10px 0;
+    display: block;
+}
+
+nav ul li a:hover {
+    color: #044389;
+}
+
+.dropdown-menu {
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: 200px;
+    border-radius: 4px;
+    display: none;
+    z-index: 100;
+}
+
+.dropdown-menu li {
+    margin: 0;
+}
+
+.dropdown-menu li a {
+    padding: 10px 15px;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+    background-image: url('/assets/img/cover.png');
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.hero-content {
+    position: relative;
+    color: white;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Team Section */
+.team-section {
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    font-size: 28px;
+    color: #044389;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: #666;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.doctor-slider {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.slider-btn {
+    background: rgba(0,0,0,0.3);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 10;
+}
+
+.prev-btn {
+    left: -10px;
+}
+
+.next-btn {
+    right: -10px;
+}
+
+.doctor-slides {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+}
+
+.doctor-slide {
+    min-width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    display: none;
+}
+
+.doctor-slide.active {
+    opacity: 1;
+    display: block;
+}
+
+.doctor-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.doctor-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.doctor-info {
+    padding: 20px;
+}
+
+.doctor-info h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #044389;
+}
+
+.specialty {
+    color: #666;
+    font-size: 14px;
+}
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: #bbb;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: #044389;
+}
+
+.view-all-link {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #044389;
+    color: white;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #033266;
+}
+
+/* Clinics Section */
+.clinics-section {
+    padding: 60px 20px;
+    background-color: white;
+}
+
+.clinics-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.clinics-title h2 {
+    font-size: 28px;
+    color: #044389;
+}
+
+.clinics-slides {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.clinic-item {
+    text-align: center;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    transition: transform 0.3s;
+    cursor: pointer;
+    width: 200px;
+}
+
+.clinic-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.clinic-icon img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+.clinic-name {
+    font-weight: 500;
+    color: #333;
+}
+
+/* News Section */
+.news {
+    padding: 60px 30px;
+    background-color: #f9f9f9;
+    width: 100%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    color: #044389;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: #666;
+    font-size: 16px;
+}
+
+.news-slider {
+    max-width: 1200px; /* เพิ่มความกว้างจาก 1000px เป็น 1200px */
+    width: 90%; /* ใช้ % แทนค่าคงที่เพื่อให้รองรับการปรับขนาดหน้าจอ */
+    margin: 0 auto;
+}
+
+.slider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.news-slides {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    min-height: 400px; /* เพิ่มความสูงจาก 300px เป็น 400px */
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.news-slide {
+    min-width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    display: none;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.news-slide.active {
+    opacity: 1;
+    display: flex;
+    z-index: 1;
+}
+
+.news-image {
+    flex: 1;
+    padding: 30px; /* เพิ่มพื้นที่ขอบจาก 20px เป็น 30px */
+}
+
+.news-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    max-height: 340px; /* เพิ่มความสูงรูปภาพจาก 300px เป็น 340px */
+    cursor: pointer; /* เพิ่มเคอร์เซอร์ pointer เมื่อชี้ที่รูปภาพ */
+}
+
+.news-content {
+    flex: 1;
+    padding: 30px; /* เพิ่มพื้นที่ขอบจาก 20px เป็น 30px */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.news-content h3 {
+    font-size: 26px; /* เพิ่มขนาดตัวอักษรจาก 22px เป็น 26px */
+    color: #044389;
+    margin-bottom: 20px;
+}
+
+.news-content p {
+    margin-bottom: 25px;
+    color: #555;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.read-more {
+    display: inline-block;
+    padding: 10px 20px; /* เพิ่มพื้นที่ขอบปุ่มจาก 8px 15px เป็น 10px 20px */
+    background-color: #044389;
+    color: white;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    align-self: flex-start;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.read-more:hover {
+    background-color: #033266;
+}
+
+.slider-btn {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px; /* เพิ่มขนาดปุ่มจาก 40px เป็น 50px */
+    height: 50px; /* เพิ่มขนาดปุ่มจาก 40px เป็น 50px */
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 2;
+    transition: background-color 0.3s ease;
+}
+
+.prev-btn {
+    left: -25px;
+}
+
+.next-btn {
+    right: -25px;
+}
+
+.slider-btn:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* เพิ่มตัวบ่งชี้สไลด์ */
+.slider-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.indicator {
+    width: 14px; /* เพิ่มขนาดจาก 12px เป็น 14px */
+    height: 14px; /* เพิ่มขนาดจาก 12px เป็น 14px */
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.indicator.active {
+    background-color: #044389;
+}
+
+/* รองรับการแสดงผลบนอุปกรณ์มือถือ */
+@media (max-width: 992px) {
+    .news-slides {
+        min-height: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+    .news-slide {
+        flex-direction: column;
+    }
+    
+    .news-image, .news-content {
+        width: 100%;
+        padding: 20px;
+    }
+    
+    .slider-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .prev-btn {
+        left: -15px;
+    }
+    
+    .next-btn {
+        right: -15px;
+    }
+    
+    .news-slides {
+        min-height: 600px;
+    }
+}
+
+/* Modal Styles */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90vh;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Services Section */
+.services {
+    padding: 60px 20px;
+    background-color: white;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.service-img img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.service-content {
+    padding: 20px;
+}
+
+.service-content h3 {
+    font-size: 20px;
+    color: #044389;
+    margin-bottom: 10px;
+}
+
+/* Health Tips Section */
+.health-tips {
+    padding: 60px 20px;
+    background-color: #f0f5ff;
+}
+
+.tips-content {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.tips-image {
+    flex: 1;
+    padding-right: 40px;
+}
+
+.tips-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.tips-text {
+    flex: 1;
+}
+
+.tips-text h2 {
+    font-size: 28px;
+    color: #044389;
+    margin-bottom: 20px;
+}
+
+.tips-list {
+    list-style: none;
+    margin: 20px 0;
+}
+
+.tips-list li {
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+}
+
+.tips-list li::before {
+    content: "✓";
+    color: #044389;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* Contact Section */
+.contact {
+    padding: 60px 20px;
+    background-color: white;
+}
+
+.contact-content {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.contact-info, .contact-form {
+    flex: 1;
+}
+
+.contact-info h2, .contact-form h2 {
+    font-size: 24px;
+    color: #044389;
+    margin-bottom: 30px;
+}
+
+.info-item {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.info-icon {
+    font-size: 24px;
+    margin-right: 15px;
+    color: #044389;
+}
+
+.info-text h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+textarea.form-control {
+    height: 150px;
+    resize: vertical;
+}
+
+.submit-btn {
+    padding: 12px 25px;
+    background-color: #044389;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #033266;
+}
+
+/* Map Section */
+.map-location {
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+}
+
+.map-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.map-container iframe {
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.location-info {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+    max-width: 300px;
+}
+
+.location-info h2 {
+    font-size: 18px;
+    color: #044389;
+    margin-bottom: 15px;
+}
+
+.address-details, .contact-details {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: flex-start;
+}
+
+.location-icon, .phone-icon {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.direction-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #044389;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* Footer */
+footer {
+    background-color: #044389;
+    color: white;
+    padding-top: 60px;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    gap: 30px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-column h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: #fff;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #fff;
+    opacity: 0.8;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+}
+
+.footer-contact-item {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.footer-contact-icon {
+    margin-right: 10px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.1);
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 991px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .tips-content {
+        flex-direction: column;
+    }
+    
+    .tips-image {
+        padding-right: 0;
+        margin-bottom: 30px;
+    }
+    
+    .contact-content {
+        flex-direction: column;
+    }
+    
+    .location-info {
+        position: static;
+        max-width: 100%;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: white;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        z-index: 100;
+        padding: 10px 0;
+    }
+    
+    nav ul.active {
+        display: flex;
+    }
+    
+    nav ul li {
+        margin: 0;
+    }
+    
+    nav ul li a {
+        padding: 10px 20px;
+    }
+    
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        padding-left: 20px;
+    }
+    
+    .news-slide.active {
+        flex-direction: column;
+    }
+    
+    .news-image {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .logo img {
+        height: 40px;
+    }
+    
+    .logo-text h1 {
+        font-size: 16px;
+    }
+    
+    .logo-text p {
+        font-size: 12px;
+    }
+    
+    .hero {
+        height: 300px;
+    }
+    
+    .section-title h2 {
+        font-size: 24px;
+    }
+    
+    .doctor-card {
+        max-width: 250px;
+    }
+    
+    .team-section, .clinics-section, .news, .services, .health-tips, .contact, .map-location {
+        padding: 40px 15px;
+    }
+    
+    .clinics-slides {
+        gap: 15px;
+    }
+    
+    .clinic-item {
+        width: 140px;
+    }
+    
+    .clinic-icon img {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .info-item {
+        flex-direction: column;
+    }
+    
+    .info-icon {
+        margin-bottom: 5px;
+    }
+    
+    .footer-column {
+        flex: 100%;
+    }
+}

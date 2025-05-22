@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="home.css">
+    <link rel="icon" href="/asset/img/favicon.ico" sizes="32x32">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจองคิวทันตกรรม - รพ.สต.ลางา</title>
+    <style>
+        * {
+    box-sizing: border-box;
+    font-family: 'Sarabun', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    background-color: #e8f4fc;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 78, 151, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 35px;
+    border-bottom: 3px solid #1e88e5;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+header:after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: #0d47a1;
+}
+
+header h1 {
+    color: #0d47a1;
+    margin-bottom: 8px;
+    font-size: 32px;
+    font-weight: 700;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+header p {
+    color: #546e7a;
+    font-size: 18px;
+    margin-top: 0;
+    font-weight: 500;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.booking-form {
+    flex: 1;
+    min-width: 300px;
+    padding: 25px;
+    background-color: #f9fcff;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 78, 151, 0.08);
+    border: 1px solid rgba(25, 118, 210, 0.1);
+}
+
+.calendar-view {
+    flex: 2;
+    min-width: 300px;
+    padding: 25px;
+    background-color: #f9fcff;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 78, 151, 0.08);
+    border: 1px solid rgba(25, 118, 210, 0.1);
+}
+
+h2 {
+    color: #1976d2;
+    margin-top: 0;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #bbdefb;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #37474f;
+    font-size: 15px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #bbdefb;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #37474f;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: #1976d2;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+}
+
+button {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 5px rgba(25, 118, 210, 0.2);
+}
+
+button:hover {
+    background-color: #1565c0;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(25, 118, 210, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(25, 118, 210, 0.2);
+}
+
+.calendar {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 5px rgba(0, 78, 151, 0.1);
+}
+
+.calendar th, .calendar td {
+    border: 1px solid #e3f2fd;
+    padding: 12px;
+    text-align: center;
+}
+
+.calendar th {
+    background-color: #1976d2;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.calendar td {
+    height: 110px;
+    vertical-align: top;
+    transition: all 0.2s ease;
+}
+
+.calendar td:hover {
+    background-color: #f5fbff;
+}
+
+.calendar .day {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #37474f;
+    position: relative;
+    text-align: left;
+    font-size: 14px;
+}
+
+.calendar .appointment {
+    background-color: #e3f2fd;
+    padding: 6px 8px;
+    margin-bottom: 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    border-left: 3px solid #1976d2;
+    text-align: left;
+    transition: all 0.2s ease;
+    color: #0d47a1;
+}
+
+.calendar .appointment:hover {
+    background-color: #bbdefb;
+    transform: translateX(2px);
+}
+
+.calendar .other-month {
+    background-color: #f8f9fa;
+    color: #b0bec5;
+}
+
+.today {
+    background-color: #e8f5e9;
+    position: relative;
+}
+
+.today .day:after {
+    content: "วันนี้";
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background-color: #43a047;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: normal;
+}
+
+.time-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.time-slot {
+    padding: 10px 8px;
+    border: 1px solid #bbdefb;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.time-slot.available {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border-color: #c8e6c9;
+}
+
+.time-slot.available:hover {
+    background-color: #c8e6c9;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.time-slot.unavailable {
+    background-color: #ffebee;
+    color: #b71c1c;
+    cursor: not-allowed;
+    border-color: #ffcdd2;
+    opacity: 0.7;
+    text-decoration: line-through;
+}
+
+.time-slot.selected {
+    background-color: #1976d2;
+    color: white;
+    border-color: #1565c0;
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+    
+    .container {
+        padding: 20px 15px;
+    }
+    
+    .booking-form, .calendar-view {
+        padding: 20px 15px;
+    }
+    
+    .calendar td {
+        height: 90px;
+    }
+}
+
+.message {
+    padding: 15px;
+    margin: 15px 0 5px;
+    border-radius: 6px;
+    font-weight: 500;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border-left: 4px solid #43a047;
+}
+
+.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border-left: 4px solid #e53935;
+}
+
+/* เพิ่มสไตล์สำหรับปุ่มเปลี่ยนเดือน */
+#calendarContainer button {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    padding: 8px 12px;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    width: auto;
+}
+
+#calendarContainer button:hover {
+    background-color: #bbdefb;
+    color: #0d47a1;
+}
+
+#calendarContainer h3 {
+    color: #1976d2;
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+}
+    </style>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+    <script src="script.js"></script>
+    
+    <div class="container">
+        <header>
+            <h1>ระบบจองคิวทันตกรรม</h1>
+            <p>โรงพยาบาลส่งเสริมสุขภาพตำบลลางา</p>
+        </header>
+        
+        <div class="content">
+            <div class="booking-form">
+                <h2>จองคิวทันตกรรม</h2>
+                <form id="appointmentForm">
+                    <div class="form-group">
+                        <label for="appointmentDate">วันที่ต้องการจองคิว</label>
+                        <input type="date" id="appointmentDate" name="appointmentDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="appointmentTime">เวลาที่ต้องการจอง</label>
+                        <div class="time-slots" id="timeSlots">
+                            <!-- เวลาจะถูกสร้างด้วย JavaScript -->
+                        </div>
+                        <input type="hidden" id="selectedTime" name="selectedTime" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="firstName">ชื่อ</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName">นามสกุล</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">เบอร์โทรศัพท์</label>
+                        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" maxlength="10" required>
+                    </div>
+                    
+                    <button type="submit">ยืนยันการจองคิว</button>
+                </form>
+                <div id="message" class="message" style="display: none;"></div>
+            </div>
+            
+            <div class="calendar-view">
+                <h2>ปฏิทินการจองคิว</h2>
+                <div id="calendarContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ข้อมูลการจองคิว (ในระบบจริงควรเก็บในฐานข้อมูล)
+        let appointments = [
+            {
+                date: '2025-04-10',
+                time: '09:30',
+                firstName: 'วิชัย',
+                lastName: 'มีนา',
+                phone: '0891234567'
+            }
+        ];
+        
+        // เวลาที่เปิดให้จอง
+        const availableTimes = [
+            '09:00', '09:30', 
+            '10:00', '10:30', 
+            '11:00', '11:30', 
+            // เวลาพักกลางวัน 12:00 - 13:30 ไม่มีในรายการ
+            '13:30', '14:00', 
+            '14:30', '15:00', 
+            '15:30'
+        ];
+        
+        // รับอ้างอิงถึงองค์ประกอบ DOM
+        const appointmentForm = document.getElementById('appointmentForm');
+        const appointmentDateInput = document.getElementById('appointmentDate');
+        const timeSlotsContainer = document.getElementById('timeSlots');
+        const selectedTimeInput = document.getElementById('selectedTime');
+        const messageDiv = document.getElementById('message');
+        
+        // กำหนดค่าเริ่มต้นของวันที่เป็นวันปัจจุบัน
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0];
+        appointmentDateInput.value = formattedDate;
+        appointmentDateInput.min = formattedDate; // ไม่อนุญาตให้เลือกวันที่ผ่านมาแล้ว
+        
+        // เมื่อวันที่เปลี่ยน ให้อัปเดตช่องเวลาที่มีให้จอง
+        appointmentDateInput.addEventListener('change', updateTimeSlots);
+        
+        // อัปเดตช่องเวลาในตอนเริ่มต้น
+        updateTimeSlots();
+        
+        // สร้างปฏิทิน
+        generateCalendar(today.getFullYear(), today.getMonth());
+        
+        // เมื่อส่งฟอร์ม
+        appointmentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // ตรวจสอบว่าได้เลือกเวลาหรือไม่
+            if (!selectedTimeInput.value) {
+                showMessage('กรุณาเลือกเวลาที่ต้องการจองคิว', 'error');
+                return;
+            }
+            
+            // เก็บข้อมูลการจอง
+            const newAppointment = {
+                date: appointmentDateInput.value,
+                time: selectedTimeInput.value,
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                phone: document.getElementById('phone').value
+            };
+            
+            // ตรวจสอบว่าช่วงเวลานี้มีการจองแล้วหรือไม่
+            const isTimeSlotTaken = appointments.some(app => 
+                app.date === newAppointment.date && app.time === newAppointment.time
+            );
+            
+            if (isTimeSlotTaken) {
+                showMessage('ช่วงเวลานี้มีการจองแล้ว กรุณาเลือกเวลาอื่น', 'error');
+                return;
+            }
+            
+            // เพิ่มการจองลงในรายการ
+            appointments.push(newAppointment);
+            
+            // อัปเดตช่องเวลาและปฏิทิน
+            updateTimeSlots();
+            generateCalendar(today.getFullYear(), today.getMonth());
+            
+            showMessage('จองคิวสำเร็จ! ขอบคุณที่ใช้บริการ', 'success');
+            
+            // รีเซ็ตฟอร์ม (เฉพาะข้อมูลส่วนตัว ไม่รวมวันและเวลา)
+            document.getElementById('firstName').value = '';
+            document.getElementById('lastName').value = '';
+            document.getElementById('phone').value = '';
+            selectedTimeInput.value = '';
+            
+            // ลบ class selected จากทุก time slot
+            const timeSlots = document.querySelectorAll('.time-slot');
+            timeSlots.forEach(slot => slot.classList.remove('selected'));
+        });
+        
+        // ฟังก์ชันอัปเดตช่องเวลา
+        function updateTimeSlots() {
+            const selectedDate = appointmentDateInput.value;
+            timeSlotsContainer.innerHTML = '';
+            selectedTimeInput.value = '';
+            
+            availableTimes.forEach(time => {
+                const isBooked = appointments.some(app => 
+                    app.date === selectedDate && app.time === time
+                );
+                
+                const timeSlot = document.createElement('div');
+                timeSlot.className = `time-slot ${isBooked ? 'unavailable' : 'available'}`;
+                timeSlot.textContent = time;
+                
+                if (!isBooked) {
+                    timeSlot.addEventListener('click', function() {
+                        // ลบการเลือกก่อนหน้า
+                        document.querySelectorAll('.time-slot').forEach(slot => 
+                            slot.classList.remove('selected')
+                        );
+                        
+                        // เลือกช่องเวลานี้
+                        this.classList.add('selected');
+                        selectedTimeInput.value = time;
+                    });
+                }
+                
+                timeSlotsContainer.appendChild(timeSlot);
+            });
+        }
+        
+        // ฟังก์ชันแสดงข้อความ
+        function showMessage(text, type) {
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            messageDiv.style.display = 'block';
+            
+            // ซ่อนข้อความหลังจาก 5 วินาที
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+        
+        // ฟังก์ชันสร้างปฏิทิน
+        function generateCalendar(year, month) {
+            const calendarContainer = document.getElementById('calendarContainer');
+            const date = new Date(year, month, 1);
+            const today = new Date();
+            
+            // ชื่อเดือนภาษาไทย
+            const monthNames = [
+                'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+                'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+            ];
+            
+            // ชื่อวันภาษาไทย
+            const dayNames = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
+            
+            // สร้างส่วนหัวปฏิทิน
+            let calendarHTML = `
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <button onclick="prevMonth()" style="padding: 5px 10px;">&lt; เดือนก่อนหน้า</button>
+                    <h3>${monthNames[month]} ${year + 543}</h3>
+                    <button onclick="nextMonth()" style="padding: 5px 10px;">เดือนถัดไป &gt;</button>
+                </div>
+                <table class="calendar">
+                    <thead>
+                        <tr>
+            `;
+            
+            // สร้างส่วนหัววันในสัปดาห์
+            dayNames.forEach(day => {
+                calendarHTML += `<th>${day}</th>`;
+            });
+            
+            calendarHTML += `
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            // หาวันแรกของเดือน
+            const firstDay = date.getDay();
+            
+            // หาจำนวนวันในเดือน
+            const lastDay = new Date(year, month + 1, 0).getDate();
+            
+            // หาวันสุดท้ายของเดือนก่อนหน้า
+            const prevMonthLastDay = new Date(year, month, 0).getDate();
+            
+            let dayCount = 1;
+            let nextMonthDay = 1;
+            
+            // สร้างตารางปฏิทิน
+            for (let i = 0; i < 6; i++) {
+                calendarHTML += '<tr>';
+                
+                for (let j = 0; j < 7; j++) {
+                    if (i === 0 && j < firstDay) {
+                        // วันของเดือนก่อนหน้า
+                        const prevDay = prevMonthLastDay - firstDay + j + 1;
+                        calendarHTML += `<td class="other-month">${prevDay}</td>`;
+                    } else if (dayCount > lastDay) {
+                        // วันของเดือนถัดไป
+                        calendarHTML += `<td class="other-month">${nextMonthDay}</td>`;
+                        nextMonthDay++;
+                    } else {
+                        // วันของเดือนปัจจุบัน
+                        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(dayCount).padStart(2, '0')}`;
+                        const isToday = today.getDate() === dayCount && today.getMonth() === month && today.getFullYear() === year;
+                        
+                        calendarHTML += `<td class="${isToday ? 'today' : ''}">
+                            <div class="day">${dayCount}</div>`;
+                        
+                        // แสดงการนัดหมายในวันนี้
+                        const dayAppointments = appointments.filter(app => app.date === dateStr);
+                        dayAppointments.forEach(app => {
+                            calendarHTML += `
+                                <div class="appointment">
+                                    ${app.time} - ${app.firstName} ${app.lastName}
+                                </div>
+                            `;
+                        });
+                        
+                        calendarHTML += `</td>`;
+                        dayCount++;
+                    }
+                }
+                
+                calendarHTML += '</tr>';
+                
+                // หยุดถ้าครบวันในเดือนแล้ว
+                if (dayCount > lastDay && i > 3) break;
+            }
+            
+            calendarHTML += `
+                    </tbody>
+                </table>
+            `;
+            
+            calendarContainer.innerHTML = calendarHTML;
+        }
+        
+        // ฟังก์ชันเปลี่ยนเดือน
+        let currentMonth = today.getMonth();
+        let currentYear = today.getFullYear();
+        
+        function prevMonth() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            generateCalendar(currentYear, currentMonth);
+        }
+        
+        function nextMonth() {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            generateCalendar(currentYear, currentMonth);
+        }
+        
+        // กำหนดฟังก์ชันให้กับ window เพื่อให้ปุ่มเปลี่ยนเดือนทำงานได้
+        window.prevMonth = prevMonth;
+        window.nextMonth = nextMonth;    
+    </script>
+     <div id="footer-placeholder"></div>
+</body>
+</html>

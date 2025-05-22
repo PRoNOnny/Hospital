@@ -1,0 +1,98 @@
+/* เพิ่มสไตล์เฉพาะสำหรับหน้าข้อมูลพื้นฐาน */
+.information-section {
+    padding: 3rem 1rem;
+    background-color: #f5f5f5;
+}
+
+.info-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #0078bf;
+}
+
+.info-header h1 {
+    font-size: 2rem;
+    color: #0078bf;
+    margin-bottom: 0.5rem;
+}
+
+.info-header p {
+    color: #555;
+    font-size: 1.1rem;
+}
+
+.info-section {
+    margin-bottom: 2.5rem;
+}
+
+.info-section h2 {
+    font-size: 1.5rem;
+    color: #0078bf;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 1rem;
+}
+
+.info-section p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.info-list {
+    list-style-type: disc;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+.info-list li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.info-table th, .info-table td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.info-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.info-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.quote-box {
+    background-color: #f0f8ff;
+    border-left: 4px solid #0078bf;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+}
+
+.map-box {
+    height: 400px;
+    width: 100%;
+    margin: 2rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+}
