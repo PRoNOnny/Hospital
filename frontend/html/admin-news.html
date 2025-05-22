@@ -1,822 +1,982 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ระบบจัดการข่าวสาร - โรงพยาบาลส่งเสริมสุขภาพตำบลลางา">
-    <link rel="icon" href="/asset/img/favicon.ico" sizes="32x32">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>ระบบจัดการข่าวสาร - โรงพยาบาลส่งเสริมสุขภาพตำบลลางา</title>
+    <title>ระบบจัดการข่าวสาร - โรงพยาบาลส่งเสริมสุภาพ</title>
     <style>
         * {
-            font-family: 'Sarabun', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c5aa0 0%, #1e3f73 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-
-        .admin-header {
-            background-color: #0d5aaf;
-            color: white;
-            padding: 15px 20px;
+        
+        /* Login Page Styles */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .login-card h1 {
+            color: #2c5aa0;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        
+        .login-card p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2c5aa0;
+            box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .login-error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
             border-radius: 8px;
             margin-bottom: 20px;
+            display: none;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #2c5aa0, #1e3f73);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-login:hover {
+            background: linear-gradient(45deg, #1e3f73, #2c5aa0);
+            transform: translateY(-2px);
+        }
+        
+        /* Main App Styles */
+        .main-app {
+            display: none;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .header-left h1 {
+            color: white;
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header-left p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+        }
+        
+        .header-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .user-info {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+        
+        .admin-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #20c997, #28a745);
+            transform: scale(1.05);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: linear-gradient(45deg, #c82333, #dc3545);
+            transform: scale(1.05);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(45deg, #6c757d, #545b62);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(45deg, #545b62, #6c757d);
+            transform: scale(1.05);
+        }
+        
+        .btn-edit {
+            background: linear-gradient(45deg, #ffc107, #e0a800);
+            color: #000;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+        
+        .btn-edit:hover {
+            background: linear-gradient(45deg, #e0a800, #ffc107);
+        }
+        
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+        
+        .btn-logout {
+            background: linear-gradient(45deg, #6c757d, #545b62);
+            color: white;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .news-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid #2c5aa0;
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .news-date::before {
+            content: "📅";
+            margin-right: 8px;
+        }
+        
+        .news-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c5aa0;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .news-excerpt {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .news-category {
+            display: inline-block;
+            background: rgba(44, 90, 160, 0.1);
+            color: #2c5aa0;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            padding: 0 20px 20px;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            background: linear-gradient(45deg, #2c5aa0, #1e3f73);
+            color: white;
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
-        .admin-title {
-            font-size: 24px;
-            font-weight: bold;
+        
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
         }
-
-        .admin-user-info {
+        
+        .close {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        .close:hover {
+            opacity: 0.7;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-footer {
+            padding: 20px 30px;
+            border-top: 1px solid #e9ecef;
             display: flex;
-            align-items: center;
             gap: 15px;
+            justify-content: flex-end;
         }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            background-color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #0d5aaf;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .admin-logout {
-            background-color: #ff6347;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-
-        .admin-logout:hover {
-            background-color: #e53e3e;
-        }
-
-        .admin-tabs {
-            display: flex;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            padding: 10px 20px;
-            border: none;
-            background: none;
-            cursor: pointer;
-            font-size: 16px;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            border-bottom: 3px solid #0d5aaf;
-            color: #0d5aaf;
-            font-weight: bold;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #444;
-        }
-
-        .form-input,
-        .form-textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        .form-textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .btn-primary {
-            background-color: #0d5aaf;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #0a4c94;
-        }
-
-        .btn-danger {
-            background-color: #ff6347;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background-color: #e53e3e;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }
-
-        .action-btns {
-            display: flex;
-            gap: 10px;
-        }
-
-        .preview-container {
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
+        
+        /* Image Upload Styles */
+        .image-upload-section {
+            border: 2px dashed #e9ecef;
             border-radius: 8px;
             padding: 20px;
-            margin-top: 20px;
+            text-align: center;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
         }
-
-        .image-preview {
-            width: 100%;
-            height: 200px;
-            border: 1px dashed #ddd;
-            margin-bottom: 20px;
+        
+        .image-upload-section:hover {
+            border-color: #2c5aa0;
+            background-color: rgba(44, 90, 160, 0.05);
+        }
+        
+        .image-upload-section.dragover {
+            border-color: #2c5aa0;
+            background-color: rgba(44, 90, 160, 0.1);
+        }
+        
+        .upload-tabs {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #f9f9f9;
-            overflow: hidden;
+            margin-bottom: 15px;
+            background: #e9ecef;
+            border-radius: 8px;
+            padding: 4px;
         }
-
+        
+        .upload-tab {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-tab.active {
+            background: white;
+            color: #2c5aa0;
+            font-weight: 500;
+        }
+        
+        .upload-content {
+            display: none;
+        }
+        
+        .upload-content.active {
+            display: block;
+        }
+        
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+        
+        .file-input-label {
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #2c5aa0, #1e3f73);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .file-input-label:hover {
+            background: linear-gradient(45deg, #1e3f73, #2c5aa0);
+        }
+        
+        .image-preview {
+            margin-top: 15px;
+            display: none;
+        }
+        
         .image-preview img {
             max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .alert {
-            padding: 15px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .file-input-container {
-            position: relative;
-        }
-
-        .file-input-label {
-            display: inline-block;
-            padding: 10px 15px;
-            background-color: #f2f2f2;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 5px;
-        }
-
-        .file-input {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-
-        .file-name {
-            margin-left: 10px;
-            font-style: italic;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            gap: 5px;
-        }
-
-        .pagination button {
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            background-color: white;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        .pagination button.active {
-            background-color: #0d5aaf;
-            color: white;
-            border-color: #0d5aaf;
-        }
-
-        /* Login Page Styles */
-        .login-container {
-            max-width: 400px;
-            margin: 100px auto;
-            padding: 30px;
-            background-color: white;
+            max-height: 200px;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-
-        .login-logo {
-            text-align: center;
-            margin-bottom: 30px;
+        
+        .view-toggle {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 5px;
         }
-
-        .login-logo img {
-            max-width: 150px;
-            height: auto;
-        }
-
-        .login-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #0d5aaf;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .login-input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #0d5aaf;
-            color: white;
+        
+        .view-btn {
+            padding: 8px 16px;
             border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: bold;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
         }
-
-        .login-btn:hover {
-            background-color: #0a4c94;
+        
+        .view-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
         }
-
-        .login-footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 14px;
-            color: #666;
+        
+        .admin-view {
+            display: block;
         }
-
-        .login-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 15px;
+        
+        .public-view {
             display: none;
+        }
+        
+        .public-view .card-actions {
+            display: none;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .admin-controls {
+                justify-content: center;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .modal-footer {
+                flex-direction: column;
+            }
+            
+            .upload-tabs {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
-
 <body>
     <!-- Login Page -->
-    <div class="login-container" id="loginPage">
-        <div class="login-logo">
-            <img src="/api/placeholder/150/150" alt="โรงพยาบาลส่งเสริมสุขภาพตำบลลางา">
-        </div>
-        <div class="login-title">เข้าสู่ระบบจัดการข่าวสาร</div>
-        <div class="login-error" id="loginError">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</div>
-        <form id="loginForm">
-            <input type="text" class="login-input" id="username" placeholder="ชื่อผู้ใช้" required>
-            <input type="password" class="login-input" id="password" placeholder="รหัสผ่าน" required>
-            <button type="submit" class="login-btn">เข้าสู่ระบบ</button>
-        </form>
-        <div class="login-footer">
-            โรงพยาบาลส่งเสริมสุขภาพตำบลลางา<br>
-            อำเภอมายอ จังหวัดปัตตานี
-        </div>
-    </div>
-
-    <!-- Admin Dashboard -->
-    <div class="container" id="adminDashboard" style="display: none;">
-        <!-- Admin Header -->
-        <div class="admin-header">
-            <div class="admin-title">ระบบจัดการข่าวสาร - โรงพยาบาลส่งเสริมสุขภาพตำบลลางา</div>
-            <div class="admin-user-info">
-                <div class="user-avatar" id="userAvatar">U</div>
-                <span id="welcomeMessage">ยินดีต้อนรับ, User</span>
-                <button class="admin-logout" id="logoutBtn">ออกจากระบบ</button>
-            </div>
-        </div>
-
-        <!-- Alert Messages -->
-        <div class="alert alert-success" id="successAlert">บันทึกข้อมูลเรียบร้อยแล้ว</div>
-        <div class="alert alert-error" id="errorAlert">เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง</div>
-
-        <!-- Admin Tabs -->
-        <div class="admin-tabs">
-            <button class="tab-btn active" data-tab="add-news">เพิ่มข่าวใหม่</button>
-            <button class="tab-btn" data-tab="manage-news">จัดการข่าวสาร</button>
-        </div>
-
-        <!-- Add News Tab -->
-        <div class="tab-content active" id="add-news">
-            <form id="addNewsForm">
-                <div class="form-group">
-                    <label class="form-label">หัวข้อข่าว</label>
-                    <input type="text" class="form-input" id="newsTitle" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">รูปภาพประกอบข่าว</label>
-                    <div class="image-preview" id="imagePreview">
-                        <span id="previewPlaceholder">ตัวอย่างรูปภาพจะแสดงที่นี่</span>
-                    </div>
-                    <div class="file-input-container">
-                        <label class="file-input-label">
-                            เลือกรูปภาพ
-                            <input type="file" class="file-input" id="newsImage" accept="image/*">
-                        </label>
-                        <span class="file-name" id="fileName"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">คำอธิบายรูปภาพ (Alt Text)</label>
-                    <input type="text" class="form-input" id="imageAlt">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">เนื้อหาข่าว</label>
-                    <textarea class="form-textarea" id="newsContent" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">บันทึกข่าวสาร</button>
-                </div>
-            </form>
-
-            <div class="preview-container">
-                <h3 class="text-xl font-bold mb-4">ตัวอย่างการแสดงผล</h3>
-                <div class="news-slide active">
-                    <div class="news-image">
-                        <img id="previewImage" src="/api/placeholder/600/400" alt="ตัวอย่างรูปภาพ">
-                    </div>
-                    <div class="news-content">
-                        <h3 id="previewTitle">หัวข้อข่าวตัวอย่าง</h3>
-                        <p id="previewContent">เนื้อหาข่าวตัวอย่าง</p>
-                        <a href="#" class="read-more">อ่านเพิ่มเติม</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Manage News Tab -->
-        <div class="tab-content" id="manage-news">
-            <h2 class="text-xl font-bold mb-4">รายการข่าวสารทั้งหมด</h2>
+    <div id="loginPage" class="login-container">
+        <div class="login-card">
+            <h1>เข้าสู่ระบบ</h1>
+            <p>ระบบจัดการข่าวสาร</p>
             
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 5%;">ลำดับ</th>
-                        <th style="width: 15%;">รูปภาพ</th>
-                        <th style="width: 25%;">หัวข้อข่าว</th>
-                        <th style="width: 35%;">เนื้อหา</th>
-                        <th style="width: 20%;">การจัดการ</th>
-                    </tr>
-                </thead>
-                <tbody id="newsTable">
-                    <tr>
-                        <td>1</td>
-                        <td><img src="/asset/img/20230524063300-checkup06.png" alt="กิจกรรมตรวจสุขภาพประจำปี" style="max-height: 60px;"></td>
-                        <td>กิจกรรมตรวจสุขภาพประจำปี 2567</td>
-                        <td>โรงพยาบาลส่งเสริมสุขภาพตำบลลางาจัดกิจกรรมตรวจสุขภาพ...</td>
-                        <td class="action-btns">
-                            <button class="btn btn-primary edit-btn" data-id="1">แก้ไข</button>
-                            <button class="btn btn-danger delete-btn" data-id="1">ลบ</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><img src="/asset/img/LINE_ALBUM_ผ้าพื้นเมือง_250222_2 (1).jpg" alt="โครงการให้ความรู้สุขภาพ" style="max-height: 60px;"></td>
-                        <td>โครงการให้ความรู้สุขภาพในโรงเรียน</td>
-                        <td>ทีมบุคลากรของเราได้ลงพื้นที่ให้ความรู้เรื่องสุขอนามัย...</td>
-                        <td class="action-btns">
-                            <button class="btn btn-primary edit-btn" data-id="2">แก้ไข</button>
-                            <button class="btn btn-danger delete-btn" data-id="2">ลบ</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td><img src="/api/placeholder/600/400" alt="การอบรมการปฐมพยาบาลเบื้องต้น" style="max-height: 60px;"></td>
-                        <td>การอบรมการปฐมพยาบาลเบื้องต้น</td>
-                        <td>จัดอบรมให้ความรู้เกี่ยวกับการปฐมพยาบาลเบื้องต้นแก่...</td>
-                        <td class="action-btns">
-                            <button class="btn btn-primary edit-btn" data-id="3">แก้ไข</button>
-                            <button class="btn btn-danger delete-btn" data-id="3">ลบ</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id="loginError" class="login-error">
+                ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">ชื่อผู้ใช้</label>
+                    <input type="text" id="username" name="username" required placeholder="langa1, langa2, ...">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">รหัสผ่าน</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="btn-login">เข้าสู่ระบบ</button>
+            </form>
+        </div>
+    </div>
 
-            <div class="pagination">
-                <button class="active">1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>▶</button>
+    <!-- Main Application -->
+    <div id="mainApp" class="main-app">
+        <div class="container">
+            <div class="header">
+                <div class="header-left">
+                    <h1>ระบบจัดการข่าวสาร</h1>
+                    <p>จัดการข่าวสารและกิจกรรมของโรงพยาบาล</p>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        สวัสดี, <span id="currentUser"></span>
+                    </div>
+                    <div class="admin-controls">
+                        <div class="view-toggle">
+                            <button class="view-btn active" onclick="toggleView('admin')">🔧 จัดการ</button>
+                            <button class="view-btn" onclick="toggleView('public')">👁️ ดูตัวอย่าง</button>
+                        </div>
+                        <button class="btn btn-primary" onclick="openAddModal()">
+                            ➕ เพิ่มข่าวใหม่
+                        </button>
+                        <button class="btn btn-logout" onclick="logout()">
+                            🚪 ออกจากระบบ
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="newsContainer" class="news-grid">
+                <!-- News will be populated by JavaScript -->
             </div>
         </div>
     </div>
 
-    <!-- Modal for Edit News -->
-    <div id="editModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
-        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 8px; width: 80%; max-width: 800px; max-height: 90vh; overflow-y: auto;">
-            <h2 class="text-xl font-bold mb-4">แก้ไขข่าวสาร</h2>
-            <form id="editNewsForm">
-                <input type="hidden" id="editNewsId">
-                <div class="form-group">
-                    <label class="form-label">หัวข้อข่าว</label>
-                    <input type="text" class="form-input" id="editNewsTitle" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">รูปภาพประกอบข่าว</label>
-                    <div class="image-preview" id="editImagePreview">
-                        <img id="currentEditImage" src="" alt="">
+    <!-- Add/Edit News Modal -->
+    <div id="newsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">เพิ่มข่าวใหม่</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="newsForm">
+                    <div class="form-group">
+                        <label for="newsTitle">หัวข้อข่าว *</label>
+                        <input type="text" id="newsTitle" name="title" required>
                     </div>
-                    <div class="file-input-container">
-                        <label class="file-input-label">
-                            เปลี่ยนรูปภาพ
-                            <input type="file" class="file-input" id="editNewsImage" accept="image/*">
-                        </label>
-                        <span class="file-name" id="editFileName"></span>
+                    
+                    <div class="form-group">
+                        <label for="newsCategory">หมวดหมู่ *</label>
+                        <select id="newsCategory" name="category" required>
+                            <option value="">-- เลือกหมวดหมู่ --</option>
+                            <option value="ข่าวเด่น">ข่าวเด่น</option>
+                            <option value="สุขภาพ">สุขภาพ</option>
+                            <option value="กิจกรรม">กิจกรรม</option>
+                            <option value="บริการใหม่">บริการใหม่</option>
+                            <option value="ความรู้">ความรู้</option>
+                            <option value="ประกาศ">ประกาศ</option>
+                        </select>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">คำอธิบายรูปภาพ (Alt Text)</label>
-                    <input type="text" class="form-input" id="editImageAlt">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">เนื้อหาข่าว</label>
-                    <textarea class="form-textarea" id="editNewsContent" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">บันทึกการแก้ไข</button>
-                    <button type="button" class="btn btn-danger" id="cancelEdit">ยกเลิก</button>
-                </div>
-            </form>
+                    
+                    <div class="form-group">
+                        <label for="newsDate">วันที่ *</label>
+                        <input type="date" id="newsDate" name="date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newsExcerpt">เนื้อหาย่อ *</label>
+                        <textarea id="newsExcerpt" name="excerpt" placeholder="สรุปเนื้อหาข่าวสั้นๆ" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>รูปภาพ</label>
+                        <div class="image-upload-section" id="imageUploadSection">
+                            <div class="upload-tabs">
+                                <button type="button" class="upload-tab active" onclick="switchUploadTab('file')">📁 อัปโหลดไฟล์</button>
+                                <button type="button" class="upload-tab" onclick="switchUploadTab('url')">🔗 ใส่ลิงก์</button>
+                            </div>
+                            
+                            <div id="fileUpload" class="upload-content active">
+                                <div class="file-input-wrapper">
+                                    <input type="file" id="newsImageFile" accept="image/*" onchange="handleFileSelect(event)">
+                                    <label for="newsImageFile" class="file-input-label">
+                                        📷 เลือกรูปภาพ
+                                    </label>
+                                </div>
+                                <p style="margin-top: 10px; color: #666; font-size: 0.9rem;">
+                                    ลากไฟล์มาวางที่นี่ หรือคลิกเพื่อเลือก<br>
+                                    รองรับ: JPG, PNG, GIF (ขนาดไม่เกิน 5MB)
+                                </p>
+                            </div>
+                            
+                            <div id="urlUpload" class="upload-content">
+                                <input type="url" id="newsImageUrl" name="imageUrl" placeholder="https://example.com/image.jpg" onchange="handleUrlInput(event)">
+                            </div>
+                            
+                            <div id="imagePreview" class="image-preview">
+                                <img id="previewImg" src="" alt="ตัวอย่างรูป">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">ยกเลิก</button>
+                <button type="button" class="btn btn-primary" onclick="saveNews()">บันทึก</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // Valid users
-        const validUsers = [
-            { username: 'langa1', password: 'langa999' },
-            { username: 'langa2', password: 'langa999' },
-            { username: 'langa3', password: 'langa999' },
-            { username: 'langa4', password: 'langa999' },
-            { username: 'langa5', password: 'langa999' }
+        // Login credentials
+        const validUsers = {
+            'langa1': 'langa999',
+            'langa2': 'langa999',
+            'langa3': 'langa999',
+            'langa4': 'langa999',
+            'langa5': 'langa999'
+        };
+
+        // Sample news data
+        let newsData = [
+            {
+                id: 1,
+                title: "โรงพยาบาลเปิดศูนย์เฉพาะทางโรคหัวใจครบวงจร",
+                category: "ข่าวเด่น",
+                date: "2024-05-22",
+                excerpt: "โรงพยาบาลสงเสริมสุภาพผ่านบลางประกาศเปิดศูนย์เฉพาะทางโรคหัวใจครบวงจร พร้อมทีมแพทย์ผู้เชี่ยวชาญและเครื่องมือทางการแพทย์ที่ทันสมัย",
+                image: "/api/placeholder/500/300"
+            },
+            {
+                id: 2,
+                title: "การป้องกันโรคไข้หวัดใหญ่ในฤดูฝน",
+                category: "สุขภาพ",
+                date: "2024-05-20",
+                excerpt: "แนะนำวิธีการป้องกันตัวเองจากโรคไข้หวัดใหญ่ในช่วงฤดูฝน รวมถึงการฉีดวัคซีนป้องกันและการรักษาความสะอาดส่วนบุคคล",
+                image: "/api/placeholder/400/200"
+            },
+            {
+                id: 3,
+                title: "กิจกรรมตรวจสุขภาพฟรีสำหรับผู้สูงอายุ",
+                category: "กิจกรรม",
+                date: "2024-05-18",
+                excerpt: "โรงพยาบาลจัดกิจกรรมตรวจสุขภาพฟรีสำหรับผู้สูงอายุ 60 ปีขึ้นไป ทุกวันเสาร์ สัปดาห์แรกของเดือน",
+                image: "/api/placeholder/400/200"
+            }
         ];
 
-        // Check if user is logged in
-        function checkLoginStatus() {
-            const currentUser = localStorage.getItem('currentUser');
-            if (currentUser) {
-                showAdminDashboard(currentUser);
-            } else {
-                showLoginPage();
-            }
-        }
+        let currentEditId = null;
+        let currentView = 'admin';
+        let currentImageData = null;
 
-        // Show login page
-        function showLoginPage() {
-            document.getElementById('loginPage').style.display = 'block';
-            document.getElementById('adminDashboard').style.display = 'none';
-        }
-
-        // Show admin dashboard
-        function showAdminDashboard(username) {
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('adminDashboard').style.display = 'block';
-            
-            // Set welcome message and avatar
-            document.getElementById('welcomeMessage').textContent = 'ยินดีต้อนรับ, ' + username;
-            document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
-        }
-
-        // Login form submission
+        // Login functionality
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            // Check credentials
-            const user = validUsers.find(user => user.username === username && user.password === password);
-            
-            if (user) {
-                // Store login status in localStorage
-                localStorage.setItem('currentUser', username);
-                showAdminDashboard(username);
+            if (validUsers[username] && validUsers[username] === password) {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'block';
+                document.getElementById('currentUser').textContent = username;
+                renderNews();
             } else {
                 document.getElementById('loginError').style.display = 'block';
             }
         });
 
-        // Logout button
-        document.getElementById('logoutBtn').addEventListener('click', function() {
-            if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
-                // Clear login status
-                localStorage.removeItem('currentUser');
-                showLoginPage();
-            }
-        });
-
-        // Function to handle tab switching
-        document.querySelectorAll('.tab-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all tabs
-                document.querySelectorAll('.tab-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                document.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.remove('active');
-                });
-
-                // Add active class to clicked tab
-                button.classList.add('active');
-                document.getElementById(button.dataset.tab).classList.add('active');
-            });
-        });
-
-        // Image preview for new news
-        document.getElementById('newsImage').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    const imagePreview = document.getElementById('imagePreview');
-                    imagePreview.innerHTML = '';
-                    imagePreview.appendChild(img);
-                    document.getElementById('previewImage').src = e.target.result;
-                    document.getElementById('fileName').textContent = file.name;
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Live preview for title and content
-        document.getElementById('newsTitle').addEventListener('input', function() {
-            document.getElementById('previewTitle').textContent = this.value || 'หัวข้อข่าวตัวอย่าง';
-        });
-
-        document.getElementById('newsContent').addEventListener('input', function() {
-            document.getElementById('previewContent').textContent = this.value || 'เนื้อหาข่าวตัวอย่าง';
-        });
-
-        // Form submission for adding news
-        document.getElementById('addNewsForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // In a real application, you would send the form data to the server here
-            // For this example, we'll just show a success message
-            document.getElementById('successAlert').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('successAlert').style.display = 'none';
-            }, 3000);
-            this.reset();
-            document.getElementById('imagePreview').innerHTML = '<span id="previewPlaceholder">ตัวอย่างรูปภาพจะแสดงที่นี่</span>';
-            document.getElementById('previewImage').src = '/api/placeholder/600/400';
-            document.getElementById('previewTitle').textContent = 'หัวข้อข่าวตัวอย่าง';
-            document.getElementById('previewContent').textContent = 'เนื้อหาข่าวตัวอย่าง';
-            document.getElementById('fileName').textContent = '';
-        });
-
-        // Handle edit button clicks
-        document.querySelectorAll('.edit-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const newsId = this.dataset.id;
-                const modal = document.getElementById('editModal');
-                modal.style.display = 'block';
-                
-                // In a real application, you would fetch the news data from the server
-                // For this example, we'll use hardcoded data based on the ID
-                let title, content, imgSrc, imgAlt;
-                
-                if (newsId === '1') {
-                    title = 'กิจกรรมตรวจสุขภาพประจำปี 2567';
-                    content = 'โรงพยาบาลส่งเสริมสุขภาพตำบลลางาจัดกิจกรรมตรวจสุขภาพประจำปีให้แก่ประชาชนในชุมชน โดยมีการตรวจคัดกรองโรคเบาหวาน ความดันโลหิตสูง มะเร็งลำไส้ มะเร็งปากมดลูก มะเร็งเต้านม ไวรัสตับอักเสพบีและซี และให้คำปรึกษาด้านสุขภาพ ตรวจพัฒนาการเด็ก 0-5 ปี ตรวจคัดกรองผู้สูงอายุ (ADL)';
-                    imgSrc = '/asset/img/20230524063300-checkup06.png';
-                    imgAlt = 'กิจกรรมตรวจสุขภาพประจำปี';
-                } else if (newsId === '2') {
-                    title = 'โครงการให้ความรู้สุขภาพในโรงเรียน';
-                    content = 'ทีมบุคลากรของเราได้ลงพื้นที่ให้ความรู้เรื่องสุขอนามัยและการดูแลสุขภาพแก่นักเรียนในโรงเรียนเขตอำเภอมายอ';
-                    imgSrc = '/asset/img/LINE_ALBUM_ผ้าพื้นเมือง_250222_2 (1).jpg';
-                    imgAlt = 'โครงการให้ความรู้สุขภาพ';
-                } else {
-                    title = 'การอบรมการปฐมพยาบาลเบื้องต้น';
-                    content = 'จัดอบรมให้ความรู้เกี่ยวกับการปฐมพยาบาลเบื้องต้นแก่อาสาสมัครสาธารณสุขประจำหมู่บ้าน เพื่อเพิ่มทักษะการช่วยเหลือในภาวะฉุกเฉิน';
-                    imgSrc = '/api/placeholder/600/400';
-                    imgAlt = 'การอบรมการปฐมพยาบาลเบื้องต้น';
-                }
-                
-                document.getElementById('editNewsId').value = newsId;
-                document.getElementById('editNewsTitle').value = title;
-                document.getElementById('editNewsContent').value = content;
-                document.getElementById('editImageAlt').value = imgAlt;
-                document.getElementById('currentEditImage').src = imgSrc;
-                document.getElementById('currentEditImage').alt = imgAlt;
-            });
-        });
-
-        // Handle cancel edit button
-        document.getElementById('cancelEdit').addEventListener('click', function() {
-            document.getElementById('editModal').style.display = 'none';
-        });
-
-        // Image preview for edit form
-        document.getElementById('editNewsImage').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    document.getElementById('editImagePreview').innerHTML = '';
-                    document.getElementById('editImagePreview').appendChild(img);
-                    document.getElementById('currentEditImage').src = e.target.result;
-                    document.getElementById('editFileName').textContent = file.name;
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Form submission for edit news
-        document.getElementById('editNewsForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // In a real application, you would send the form data to the server here
-            // For this example, we'll just show a success message and close the modal
-            document.getElementById('successAlert').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('successAlert').style.display = 'none';
-            }, 3000);
-            document.getElementById('editModal').style.display = 'none';
-        });
-
-        // Handle delete button clicks
-        document.querySelectorAll('.delete-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const newsId = this.dataset.id;
-                if (confirm('คุณต้องการลบข่าวนี้ใช่หรือไม่?')) {
-                    // In a real application, you would delete the news from the server here
-                    // For this example, we'll just show a success message
-                    document.getElementById('successAlert').style.display = 'block';
-                    setTimeout(() => {
-                        document.getElementById('successAlert').style.display = 'none';
-                    }, 3000);
-                }
-            });
-        });
-
-        // Function to show success alert
-        function showSuccessAlert(message) {
-            const successAlert = document.getElementById('successAlert');
-            successAlert.textContent = message || 'บันทึกข้อมูลเรียบร้อยแล้ว';
-            successAlert.style.display = 'block';
-            setTimeout(() => {
-                successAlert.style.display = 'none';
-            }, 3000);
+        function logout() {
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('mainApp').style.display = 'none';
+            document.getElementById('loginForm').reset();
+            document.getElementById('loginError').style.display = 'none';
         }
 
-        // Function to show error alert
-        function showErrorAlert(message) {
-            const errorAlert = document.getElementById('errorAlert');
-            errorAlert.textContent = message || 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง';
-            errorAlert.style.display = 'block';
-            setTimeout(() => {
-                errorAlert.style.display = 'none';
-            }, 3000);
-        }
-
-        // Pagination buttons
-        document.querySelectorAll('.pagination button').forEach(button => {
-            button.addEventListener('click', function() {
-                document.querySelectorAll('.pagination button').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                this.classList.add('active');
-                // In a real application, you would fetch the news data for the selected page
-            });
-        });
-
-        // Click outside modal to close
-        window.addEventListener('click', function(event) {
-            const modal = document.getElementById('editModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        // Check login status when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            checkLoginStatus();
-        });
-
-        // Add session timeout for security (auto logout after 30 minutes of inactivity)
-        let inactivityTimer;
-
-        function resetInactivityTimer() {
-            clearTimeout(inactivityTimer);
-            inactivityTimer = setTimeout(function() {
-                // Auto logout after 30 minutes of inactivity
-                if (localStorage.getItem('currentUser')) {
-                    localStorage.removeItem('currentUser');
-                    showLoginPage();
-                    alert('คุณถูกออกจากระบบเนื่องจากไม่มีการใช้งานเป็นเวลานาน');
-                }
-            }, 30 * 60 * 1000); // 30 minutes
-        }
-
-        // Reset inactivity timer on user activity
-        ['click', 'keypress', 'mousemove', 'touchstart'].forEach(function(event) {
-            document.addEventListener(event, resetInactivityTimer);
-        });
-
-        // Initialize inactivity timer
-        resetInactivityTimer();
-
-        function getUser() {
-            const user = async 
-
+        // Image upload functionality
+        function switchUploadTab(tab) {
+            const tabs = document.querySelectorAll('.upload-tab');
+            const contents = document.querySelectorAll('.upload-content');
             
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            
+            document.querySelector(`[onclick="switchUploadTab('${tab}')"]`).classList.add('active');
+            document.getElementById(tab === 'file' ? 'fileUpload' : 'urlUpload').classList.add('active');
+            
+            // Clear preview when switching tabs
+            document.getElementById('imagePreview').style.display = 'none';
+            currentImageData = null;
         }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                alert('กรุณาเลือกไฟล์รูปภาพเท่านั้น');
+                return;
+            }
+            
+            // Validate file size (5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('ขนาดไฟล์ต้องไม่เกิน 5MB');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentImageData = e.target.result;
+                showImagePreview(currentImageData);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleUrlInput(event) {
+            const url = event.target.value;
+            if (url) {
+                currentImageData = url;
+                showImagePreview(url);
+            } else {
+                document.getElementById('imagePreview').style.display = 'none';
+                currentImageData = null;
+            }
+        }
+
+        function showImagePreview(src) {
+            const preview = document.getElementById('imagePreview');
+            const img = document.getElementById('previewImg');
+            img.src = src;
+            preview.style.display = 'block';
+        }
+
+        // Drag and drop functionality
+        const uploadSection = document.getElementById('imageUploadSection');
+        
+        uploadSection.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadSection.classList.add('dragover');
+        });
+        
+        uploadSection.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            uploadSection.classList.remove('dragover');
+        });
+        
+        uploadSection.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadSection.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                document.getElementById('newsImageFile').files = files;
+                handleFileSelect({ target: { files: files } });
+            }
+        });
+
+        function renderNews() {
+            const container = document.getElementById('newsContainer');
+            
+            if (newsData.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>ยังไม่มีข่าวสาร</h3>
+                        <p>คลิกปุ่ม "เพิ่มข่าวใหม่" เพื่อเริ่มต้น</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = newsData.map(news => `
+                <article class="news-card">
+                    <img src="${news.image}" alt="${news.title}" class="news-image">
+                    <div class="news-content">
+                        <div class="news-category">${news.category}</div>
+                        <div class="news-date">${formatThaiDate(news.date)}</div>
+                        <h2 class="news-title">${news.title}</h2>
+                        <p class="news-excerpt">${news.excerpt}</p>
+                    </div>
+                    <div class="card-actions" ${currentView === 'public' ? 'style="display: none;"' : ''}>
+                        <button class="btn btn-edit btn-small" onclick="editNews(${news.id})">
+                            ✏️ แก้ไข
+                        </button>
+                        <button class="btn btn-danger btn-small" onclick="deleteNews(${news.id})">
+                            🗑️ ลบ
+                        </button>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function formatThaiDate(dateString) {
+            const date = new Date(dateString);
+            const thaiMonths = [
+                'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+                'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+            ];
+            return `${date.getDate()} ${thaiMonths[date.getMonth()]} ${date.getFullYear() + 543}`;
+        }
+
+        function toggleView(view) {
+            currentView = view;
+            const adminBtn = document.querySelector('.view-btn:first-child');
+            const publicBtn = document.querySelector('.view-btn:last-child');
+            
+            if (view === 'admin') {
+                adminBtn.classList.add('active');
+                publicBtn.classList.remove('active');
+            } else {
+                publicBtn.classList.add('active');
+                adminBtn.classList.remove('active');
+            }
+            
+            renderNews();
+        }
+
+        function openAddModal() {
+            currentEditId = null;
+            currentImageData = null;
+            document.getElementById('modalTitle').textContent = 'เพิ่มข่าวใหม่';
+            document.getElementById('newsForm').reset();
+            document.getElementById('newsDate').valueAsDate = new Date();
+            document.getElementById('imagePreview').style.display = 'none';
+            
+            // Reset upload tabs
+            switchUploadTab('file');
+            
+            document.getElementById('newsModal').style.display = 'block';
+        }
+
+        function editNews(id) {
+            const news = newsData.find(n => n.id === id);
+            if (!news) return;
+
+            currentEditId = id;
+            currentImageData = news.image;
+            
+            document.getElementById('modalTitle').textContent = 'แก้ไขข่าว';
+            document.getElementById('newsTitle').value = news.title;
+            document.getElementById('newsCategory').value = news.category;
+            document.getElementById('newsDate').value = news.date;
+            document.getElementById('newsExcerpt').value = news.excerpt;
+            
+            // Show current image
+            if (news.image) {
+                showImagePreview(news.image);
+                // Set URL tab if it's a URL, otherwise keep file tab
+                if (news.image.startsWith('http') || news.image.startsWith('/api/placeholder')) {
+                    switchUploadTab('url');
+                    document.getElementById('newsImageUrl').value = news.image;
+                }
+            }
+            
+            document.getElementById('newsModal').style.display = 'block';
+        }
+
+        function deleteNews(id) {
+            if (confirm('คุณแน่ใจหรือไม่ที่จะลบข่าวนี้?')) {
+                newsData = newsData.filter(n => n.id !== id);
+                renderNews();
+            }
+        }
+
+        function saveNews() {
+            const form = document.getElementById('newsForm');
+            const formData = new FormData(form);
+            
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const newsItem = {
+                title: formData.get('title'),
+                category: formData.get('category'),
+                date: formData.get('date'),
+                excerpt: formData.get('excerpt'),
+                image: currentImageData || '/api/placeholder/400/200'
+            };
+
+            if (currentEditId) {
+                const index = newsData.findIndex(n => n.id === currentEditId);
+                newsData[index] = { ...newsData[index], ...newsItem };
+            } else {
+                newsItem.id = Math.max(...newsData.map(n => n.id), 0) + 1;
+                newsData.push(newsItem);
+            }
+
+            closeModal();
+            renderNews();
+        }
+
+        function closeModal() {
+            document.getElementById('newsModal').style.display = 'none';
+            currentImageData = null;
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('newsModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if already logged in (you can implement localStorage here)
+            // For now, always show login page
+        });
     </script>
 </body>
 </html>

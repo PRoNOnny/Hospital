@@ -7,7 +7,7 @@
     <link rel="icon" href="/asset/img/favicon.ico" sizes="32x32">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>ข่าวสาร - โรงพยาบาลส่งเสริมสุขภาพตำบลลางา</title>
-    <link rel="stylesheet" href="/front/css/home.css">
+    <link rel="stylesheet" href="/frontend/css/home.css">
 </head>
 <header>
     <div class="top-bar">
@@ -63,6 +63,285 @@
 </header>
 <body>
     <script src="js/script.js" defer></script>
+    <!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ข่าวสาร - โรงพยาบาลสงเสริมสุภาพ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c5aa0 0%, #1e3f73 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .news-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid #2c5aa0;
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .news-date::before {
+            content: "📅";
+            margin-right: 8px;
+        }
+        
+        .news-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c5aa0;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .news-excerpt {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .read-more {
+            display: inline-block;
+            background: linear-gradient(45deg, #2c5aa0, #1e3f73);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more:hover {
+            background: linear-gradient(45deg, #1e3f73, #2c5aa0);
+            transform: scale(1.05);
+        }
+        
+        .featured-news {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 300px;
+        }
+        
+        .featured-news .news-image {
+            height: 100%;
+            border-bottom: none;
+            border-right: 3px solid #2c5aa0;
+        }
+        
+        .featured-news .news-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 30px;
+        }
+        
+        .featured-news .news-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .featured-news .news-excerpt {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-news {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-news .news-image {
+                border-right: none;
+                border-bottom: 3px solid #2c5aa0;
+                height: 200px;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+        
+        .news-category {
+            display: inline-block;
+            background: rgba(44, 90, 160, 0.1);
+            color: #2c5aa0;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ข่าวสาร</h1>
+            <p>ติดตามข่าวสารและกิจกรรมของโรงพยาบาลสงเสริมสุภาพผ่านบลาง</p>
+        </div>
+        
+        <div class="news-grid">
+            <!-- Featured News -->
+            <article class="news-card featured-news">
+                <img src="/api/placeholder/500/300" alt="ข่าวเด่น" class="news-image">
+                <div class="news-content">
+                    <div class="news-category">ข่าวเด่น</div>
+                    <div class="news-date">22 พฤษภาคม 2567</div>
+                    <h2 class="news-title">โรงพยาบาลเปิดศูนย์เฉพาะทางโรคหัวใจครบวงจร</h2>
+                    <p class="news-excerpt">
+                        โรงพยาบาลสงเสริมสุภาพผ่านบลางประกาศเปิดศูนย์เฉพาะทางโรคหัวใจครบวงจร พร้อมทีมแพทย์ผู้เชี่ยวชาญและเครื่องมือทางการแพทย์ที่ทันสมัย เพื่อให้บริการรักษาผู้ป่วยโรคหัวใจและหลอดเลือดอย่างครบถ้วน
+                    </p>
+                    <a href="#" class="read-more">อ่านต่อ</a>
+                </div>
+            </article>
+            
+            <!-- Regular News Cards -->
+            <article class="news-card">
+                <img src="/api/placeholder/400/200" alt="ข่าวสุขภาพ" class="news-image">
+                <div class="news-content">
+                    <div class="news-category">สุขภาพ</div>
+                    <div class="news-date">20 พฤษภาคม 2567</div>
+                    <h2 class="news-title">การป้องกันโรคไข้หวัดใหญ่ในฤดูฝน</h2>
+                    <p class="news-excerpt">
+                        แนะนำวิธีการป้องกันตัวเองจากโรคไข้หวัดใหญ่ในช่วงฤดูฝน รวมถึงการฉีดวัคซีนป้องกันและการรักษาความสะอาดส่วนบุคคล
+                    </p>
+                    <a href="#" class="read-more">อ่านต่อ</a>
+                </div>
+            </article>
+            
+            <article class="news-card">
+                <img src="/api/placeholder/400/200" alt="กิจกรรม" class="news-image">
+                <div class="news-content">
+                    <div class="news-category">กิจกรรม</div>
+                    <div class="news-date">18 พฤษภาคม 2567</div>
+                    <h2 class="news-title">กิจกรรมตรวจสุขภาพฟรีสำหรับผู้สูงอายุ</h2>
+                    <p class="news-excerpt">
+                        โรงพยาบาลจัดกิจกรรมตรวจสุขภาพฟรีสำหรับผู้สูงอายุ 60 ปีขึ้นไป ทุกวันเสาร์ สัปดาห์แรกของเดือน พร้อมคำแนะนำจากทีมแพทย์
+                    </p>
+                    <a href="#" class="read-more">อ่านต่อ</a>
+                </div>
+            </article>
+            
+            <article class="news-card">
+                <img src="/api/placeholder/400/200" alt="บริการใหม่" class="news-image">
+                <div class="news-content">
+                    <div class="news-category">บริการใหม่</div>
+                    <div class="news-date">15 พฤษภาคม 2567</div>
+                    <h2 class="news-title">เปิดบริการนัดหมายออนไลน์ผ่านแอปพลิเคชัน</h2>
+                    <p class="news-excerpt">
+                        ระบบนัดหมายออนไลน์ใหม่ที่สะดวกและรวดเร็ว ผู้ป่วยสามารถนัดหมายแพทย์ได้ตลอด 24 ชั่วโมง ผ่านแอปพลิเคชันมือถือ
+                    </p>
+                    <a href="#" class="read-more">อ่านต่อ</a>
+                </div>
+            </article>
+            
+            <article class="news-card">
+                <img src="/api/placeholder/400/200" alt="ความรู้สุขภาพ" class="news-image">
+                <div class="news-content">
+                    <div class="news-category">ความรู้</div>
+                    <div class="news-date">12 พฤษภาคม 2567</div>
+                    <h2 class="news-title">การดูแลสุขภาพช่องปากและฟันที่ถูกต้อง</h2>
+                    <p class="news-excerpt">
+                        คำแนะนำจากทันตแพทย์เกี่ยวกับการดูแลสุขภาพช่องปากและฟัน การเลือกใช้ยาสีฟัน และการป้องกันโรคเหงือก
+                    </p>
+                    <a href="#" class="read-more">อ่านต่อ</a>
+                </div>
+            </article>
+            
+            <article class="news-card">
+                <img src="/api/placeholder/400/200" alt="ประกาศ" class="news-image">
+                <div class="news-content">
+                    <div class="news-category">ประกาศ</div>
+                    <div class="news-date">10 พฤษภาคม 2567</div>
+                    <h2 class="news-title">ประกาศเปลี่ยนแปลงเวลาบริการแผนกฉุกเฉิน</h2>
+                    <p class="news-excerpt">
+                        แจ้งการเปลี่ยนแปลงเวลาบริการแผนกฉุกเฉิน เริ่มตั้งแต่วันที่ 1 มิถุนายน 2567 เป็นต้นไป เพื่อให้บริการที่ดีและมีประสิทธิภาพมากยิ่งขึ้น
+                    </p>
+                    <a href="#" class="read-more">อ่านต่อ</a>
+                </div>
+            </article>
+        </div>
+    </div>
+</body>
+</html>
 </body>
  <!-- ฟุตเตอร์ -->
  <footer>
