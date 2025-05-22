@@ -1,7 +1,7 @@
 class BaseApi{
-        constructor(){
+    constructor(){
         
     }
 }
 
-module.exports = ApiService;
+module.exports = BaseApi;

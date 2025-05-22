@@ -3,9 +3,6 @@ class BaseService{
         
     }
 
-    init(app){
-        
-    }
 }
 
 module.exports = BaseService;

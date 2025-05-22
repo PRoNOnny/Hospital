@@ -1,0 +1,16 @@
+{
+    "app": "gateway-service",
+    "environment": "localhost",
+    "localhost": "0.0.0.0",
+    "port":"8080",
+
+    "DB_HOST":"203.170.190.21",
+    "DB_USER":"langashp_admin",
+    "DB_NAME":"langashp_",
+    "DB_PASSWORD":"wW21k35^g",
+
+    "error_message": {
+       
+    }
+
+}

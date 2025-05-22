@@ -1,27 +1,36 @@
-const mysql = require('mysql2');
+const mysql = require("mysql2");
+const config = require("config");
 
-// Create a connection to the MySQL server
-const connection = mysql.createConnection({
-  host: 'localhost',      // usually localhost
-  user: 'root',           // your MySQL username
-  password: '',           // your MySQL password (empty by default on XAMPP)
-  database: 'mydatabase'  // your database name
-});
-
-// Connect
-connection.connect((err) => {
-  if (err) {
-    console.error('❌ Connection failed:', err.stack);
-    return;
+class DBRepository {
+  constructor() {
+    this.connection = mysql.createConnection({
+      host: config.get("DB_HOST"),
+      user: config.get("DB_USER"),
+      password: config.get("DB_PASSWORD"),
+      database: config.get("DB_NAME"),
+    });
   }
-  console.log('✅ Connected as ID ' + connection.threadId);
-});
 
-// Example query
-connection.query('', (error, results) => {
-  if (error) throw error;
-  console.log('📦 Data:', results);
-});
+  getConnection(callback) {
+    this.connection.connect((connection) => {
+      if (!connection) {
+        callback(true);
+      } else {
+        console.log("Connection fail to create connection.");
+        callback(false);
+      }
+    });
+  }
 
-// Don't forget to close the connection
-connection.end();
+  executeQuery(queryString, callback) {
+    this.connection.query(queryString, (err, rows, field) => {
+      if (err) {
+        callback(false);
+      } else {
+        callback(rows);
+      }
+    });
+  }
+}
+
+module.exports = DBRepository;
